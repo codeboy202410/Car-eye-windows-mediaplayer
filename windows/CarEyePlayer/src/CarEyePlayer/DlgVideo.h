@@ -5,6 +5,7 @@
 
 
 #include "../libCarEyePlayer/libCarEyePlayerAPI.h"
+#pragma comment(lib,"../libCarEyePlayer/libCarEyePlayer.lib")
 
 
 class CDlgVideo : public CDialogEx
@@ -62,6 +63,6 @@ public:
 	afx_msg void OnBnClickedCheckRtptransmode();
 
 public:
-	static int CALLBACK EasyPlayerCallBack( int _channelId, int *_channelPtr, int _frameType, char *pBuf, RTSP_FRAME_INFO* _frameInfo);
+	static int CALLBACK CarEyePlayerCallBack( int _channelId, int *_channelPtr, int _frameType, char *pBuf, CAREYE_RTSP_FRAME_INFO* _frameInfo);
 
 };

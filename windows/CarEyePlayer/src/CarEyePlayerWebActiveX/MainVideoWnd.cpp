@@ -14,16 +14,16 @@ IMPLEMENT_DYNAMIC(CMainVideoWnd, CDialogEx)
 CMainVideoWnd::CMainVideoWnd(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CMainVideoWnd::IDD, pParent)
 {
-	m_pEasyLogo = new CImageEx;
+	m_pCarEyeLogo = new CImageEx;
 	m_bFuulScreen = FALSE;
 	m_pMainCtrl = NULL;
 }
 
 CMainVideoWnd::~CMainVideoWnd()
 {
-	if (m_pEasyLogo)
+	if (m_pCarEyeLogo)
 	{
-		SafeDelete(m_pEasyLogo);
+		SafeDelete(m_pCarEyeLogo);
 	}
 }
 
@@ -54,11 +54,11 @@ void CMainVideoWnd::OnPaint()
 	dc.FillRect(&rcClient, &brushBkgnd);
 	brushBkgnd.DeleteObject(); //ÊÍ·Å»­Ë¢ 
 
-	if ( m_pEasyLogo != NULL && !m_pEasyLogo->IsNull() )
+	if ( m_pCarEyeLogo != NULL && !m_pCarEyeLogo->IsNull() )
 	{
 		int nStartX = (rcClient.Width()-184)/2;
 		int nStartY =  (rcClient.Height()-184)/2;
-		m_pEasyLogo->DrawImage(CDC::FromHandle(dc.m_hDC),nStartX,nStartY);
+		m_pCarEyeLogo->DrawImage(CDC::FromHandle(dc.m_hDC),nStartX,nStartY);
 	}
 }
 
@@ -67,9 +67,9 @@ BOOL CMainVideoWnd::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	if (m_pEasyLogo)
+	if (m_pCarEyeLogo)
 	{
-		m_pEasyLogo->LoadImage( ::AfxGetInstanceHandle(),MAKEINTRESOURCE(IDB_PNG_EASYLOGO), TEXT("PNG"));
+		m_pCarEyeLogo->LoadImage( ::AfxGetInstanceHandle(),MAKEINTRESOURCE(IDB_PNG_CarEyeLOGO), TEXT("PNG"));
 	}
 		
 

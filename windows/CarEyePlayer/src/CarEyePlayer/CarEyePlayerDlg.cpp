@@ -1,5 +1,5 @@
 
-// EasyPlayerDlg.cpp : 实现文件
+// CarEyePlayerDlg.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -8,6 +8,9 @@
 #include "afxdialogex.h"
 
 #include "CreateDump.h"
+
+#define KEY "79393674363469576B5A73416C4A686170576445384F394459584A4665575651624746355A5849755A58686C4B56634D56714459384F424859585A7062695A4359574A76633246414D6A41784E6B566863336C4559584A33615735555A5746745A57467A65513D3D"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -57,11 +60,11 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CEasyPlayerDlg 对话框
+// CCarEyePlayerDlg 对话框
 
 
-CEasyPlayerDlg::CEasyPlayerDlg(CWnd* pParent /*=NULL*/)
-	: CSkinDialog(CEasyPlayerDlg::IDD, TEXT("Main_config.xml"), pParent)
+CCarEyePlayerDlg::CCarEyePlayerDlg(CWnd* pParent /*=NULL*/)
+	: CSkinDialog(CCarEyePlayerDlg::IDD, TEXT("Main_config.xml"), pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 
@@ -70,7 +73,7 @@ CEasyPlayerDlg::CEasyPlayerDlg(CWnd* pParent /*=NULL*/)
 	SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)CrashHandler_Player);
 }
 
-void CEasyPlayerDlg::DoDataExchange(CDataExchange* pDX)
+void CCarEyePlayerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
 
@@ -78,23 +81,23 @@ void CEasyPlayerDlg::DoDataExchange(CDataExchange* pDX)
 		DDX_Control(pDX, IDC_CHECK_SHOWNTOSCALE, pChkShownToScale);
 }
 
-BEGIN_MESSAGE_MAP(CEasyPlayerDlg, CSkinDialog)
+BEGIN_MESSAGE_MAP(CCarEyePlayerDlg, CSkinDialog)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_MESSAGE(WM_WINDOW_MAXIMIZED, OnWindowMaximized)
-	ON_CBN_SELCHANGE(IDC_COMBO_SPLIT_SCREEN, &CEasyPlayerDlg::OnCbnSelchangeComboSplitScreen)
-	ON_CBN_SELCHANGE(IDC_COMBO_RENDER_FORMAT, &CEasyPlayerDlg::OnCbnSelchangeComboRenderFormat)
-	ON_BN_CLICKED(IDC_CHECK_SHOWNTOSCALE, &CEasyPlayerDlg::OnBnClickedCheckShowntoscale)
+	ON_CBN_SELCHANGE(IDC_COMBO_SPLIT_SCREEN, &CCarEyePlayerDlg::OnCbnSelchangeComboSplitScreen)
+	ON_CBN_SELCHANGE(IDC_COMBO_RENDER_FORMAT, &CCarEyePlayerDlg::OnCbnSelchangeComboRenderFormat)
+	ON_BN_CLICKED(IDC_CHECK_SHOWNTOSCALE, &CCarEyePlayerDlg::OnBnClickedCheckShowntoscale)
 	ON_WM_LBUTTONDOWN()
-	ON_MESSAGE(MSG_LOG, &CEasyPlayerDlg::OnLog)
+	ON_MESSAGE(MSG_LOG, &CCarEyePlayerDlg::OnLog)
 
 END_MESSAGE_MAP()
 
 
-// CEasyPlayerDlg 消息处理程序
+// CCarEyePlayerDlg 消息处理程序
 
-BOOL CEasyPlayerDlg::OnInitDialog()
+BOOL CCarEyePlayerDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
@@ -157,7 +160,7 @@ BOOL CEasyPlayerDlg::OnInitDialog()
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
-void CEasyPlayerDlg::OnSysCommand(UINT nID, LPARAM lParam)
+void CCarEyePlayerDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
 	{
@@ -174,7 +177,7 @@ void CEasyPlayerDlg::OnSysCommand(UINT nID, LPARAM lParam)
 //  来绘制该图标。对于使用文档/视图模型的 MFC 应用程序，
 //  这将由框架自动完成。
 
-void CEasyPlayerDlg::OnPaint()
+void CCarEyePlayerDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -201,20 +204,20 @@ void CEasyPlayerDlg::OnPaint()
 
 //当用户拖动最小化窗口时系统调用此函数取得光标
 //显示。
-HCURSOR CEasyPlayerDlg::OnQueryDragIcon()
+HCURSOR CCarEyePlayerDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-BOOL CEasyPlayerDlg::DestroyWindow()
+BOOL CCarEyePlayerDlg::DestroyWindow()
 {
 	DeleteComponents();
-	EasyPlayer_Release();
+	CarEyePlayer_Release();
 
 	return CSkinDialog::DestroyWindow();
 }
 
-LRESULT CEasyPlayerDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CCarEyePlayerDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (WM_PAINT == message || WM_SIZE==message)
 	{
@@ -225,7 +228,7 @@ LRESULT CEasyPlayerDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 
-void	CEasyPlayerDlg::InitialComponents()
+void	CCarEyePlayerDlg::InitialComponents()
 {
 	pComboxSplitScreen	=	NULL;
 	pComboxRenderFormat	=	NULL;
@@ -234,10 +237,10 @@ void	CEasyPlayerDlg::InitialComponents()
 	pStaticCopyright	=	NULL;
 
 	RenderFormat	=	DISPLAY_FORMAT_RGB565;//RGB565
-	EasyPlayer_Init();
+	CarEyePlayer_Init(KEY);
 }
 
-void	CEasyPlayerDlg::CreateComponents()
+void	CCarEyePlayerDlg::CreateComponents()
 {
 	__CREATE_WINDOW(pComboxSplitScreen, CComboBox,		IDC_COMBO_SPLIT_SCREEN);
 	__CREATE_WINDOW(pComboxRenderFormat, CComboBox,		IDC_COMBO_RENDER_FORMAT);
@@ -294,7 +297,7 @@ void	CEasyPlayerDlg::CreateComponents()
 		pComboxRenderFormat->SetCurSel(3);
 	}
 }
-void	CEasyPlayerDlg::UpdateComponents()
+void	CCarEyePlayerDlg::UpdateComponents()
 {
 	CRect	rcClient;
 	GetClientRect(&rcClient);
@@ -324,7 +327,7 @@ void	CEasyPlayerDlg::UpdateComponents()
 	rcCopyright.SetRect(rcClient.right-200, rcSplitScreen.top+5, rcClient.right-2, rcClient.bottom);
 	__MOVE_WINDOW(pStaticCopyright, rcCopyright);
 }
-void	CEasyPlayerDlg::DeleteComponents()
+void	CCarEyePlayerDlg::DeleteComponents()
 {
 	if (NULL != pVideoWindow)
 	{
@@ -347,7 +350,7 @@ void	CEasyPlayerDlg::DeleteComponents()
 }
 
 
-void	CEasyPlayerDlg::UpdateVideoPosition(LPRECT lpRect)
+void	CCarEyePlayerDlg::UpdateVideoPosition(LPRECT lpRect)
 {
 	CRect rcClient;
 	if (NULL == lpRect)
@@ -538,7 +541,7 @@ void	CEasyPlayerDlg::UpdateVideoPosition(LPRECT lpRect)
 	}
 }
 
-LRESULT CEasyPlayerDlg::OnWindowMaximized(WPARAM wParam, LPARAM lParam)
+LRESULT CCarEyePlayerDlg::OnWindowMaximized(WPARAM wParam, LPARAM lParam)
 {
 	int nCh = (int)wParam;
 
@@ -555,7 +558,7 @@ LRESULT CEasyPlayerDlg::OnWindowMaximized(WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-void CEasyPlayerDlg::OnCbnSelchangeComboSplitScreen()
+void CCarEyePlayerDlg::OnCbnSelchangeComboSplitScreen()
 {
 	if (NULL == pVideoWindow)		return;
 
@@ -571,7 +574,7 @@ void CEasyPlayerDlg::OnCbnSelchangeComboSplitScreen()
 }
 
 
-void CEasyPlayerDlg::OnCbnSelchangeComboRenderFormat()
+void CCarEyePlayerDlg::OnCbnSelchangeComboRenderFormat()
 {
 	if (NULL == pComboxRenderFormat)		return;
 
@@ -582,7 +585,7 @@ void CEasyPlayerDlg::OnCbnSelchangeComboRenderFormat()
 	else if (iIdx == 3)	RenderFormat	=	DISPLAY_FORMAT_RGB24_GDI;//GDI
 }
 
-void CEasyPlayerDlg::OnBnClickedCheckShowntoscale()
+void CCarEyePlayerDlg::OnBnClickedCheckShowntoscale()
 {
 	//IDC_CHECK_SHOWNTOSCALE
 	if (NULL == pVideoWindow)					return;
@@ -596,7 +599,7 @@ void CEasyPlayerDlg::OnBnClickedCheckShowntoscale()
 	}
 }
 
-void CEasyPlayerDlg::OnLButtonDown(UINT nFlags, CPoint point)
+void CCarEyePlayerDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	PostMessage(WM_NCLBUTTONDOWN,HTCAPTION,MAKELPARAM(point.x,point.y));
@@ -604,7 +607,7 @@ void CEasyPlayerDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	CSkinDialog::OnLButtonDown(nFlags, point);
 }
 
-LRESULT CEasyPlayerDlg::OnLog(WPARAM wParam, LPARAM lParam)
+LRESULT CCarEyePlayerDlg::OnLog(WPARAM wParam, LPARAM lParam)
 {
 	CSkinEdit* pLog = (CSkinEdit*)GetDlgItem(5100);
 	if (pLog)

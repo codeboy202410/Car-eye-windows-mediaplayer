@@ -1,21 +1,30 @@
-/*
-	Copyright (c) 2013-2014 EasyDarwin.ORG.  All rights reserved.
-	Github: https://github.com/EasyDarwin
-	WEChat: EasyDarwin
-	Website: http://www.easydarwin.org
-	Author: Sword@easydarwin.org
-*/
 
-#ifndef __LIB_EASY_PLAYER_API_H__
-#define __LIB_EASY_PLAYER_API_H__
+
+#ifndef __LIB_CAREYE_PLAYER_API_H__
+#define __LIB_CAREYE_PLAYER_API_H__
 
 #include <winsock2.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "EasyRTSPClient\EasyRTSPClientAPI.h"
 
-#define LIB_EASYPLAYER_API __declspec(dllexport)
+/* 音视频帧标识 */
+#define CAREYE_SDK_VIDEO_FRAME_FLAG	0x00000001		/* 视频帧标志 */
+#define CAREYE_SDK_AUDIO_FRAME_FLAG	0x00000002		/* 音频帧标志 */
+#define CAREYE_SDK_EVENT_FRAME_FLAG	0x00000004		/* 事件帧标志 */
+#define CAREYE_SDK_RTP_FRAME_FLAG		0x00000008		/* RTP帧标志 */
+#define CAREYE_SDK_SDP_FRAME_FLAG		0x00000010		/* SDP帧标志 */
+#define CAREYE_SDK_MEDIA_INFO_FLAG		0x00000020		/* 媒体类型标志*/
+#define CAREYE_SDK_DECODE_VIDEO_FLAG 0x00000040		/* 解码视频类型标志*/
+#define CAREYE_SDK_DECODE_AUDO_FLAG	 0x00000080		/* 解码音频类型标志*/
+#define CAREYE_SDK_EVENT_CODEC_ERROR	0x63657272	/* ERROR */
+#define CAREYE_SDK_EVENT_CODEC_EXIT	0x65786974	/* EXIT */
+#define CAREYE_SDK_EVENT_CODEC_SHOT_START	    0x12001	/* Screen shot start*/
+#define CAREYE_SDK_EVENT_CODEC_SLOT_STOP		0x12002	/* Screen shot stop */
+#define CAREYE_SDK_EVENT_CODEC_RECORD_START	0x12003	/* Record Start */
+#define CAREYE_SDK_EVENT_CODEC_RECORD_STOP	0x12004	/* Record Stop */
+
+#define LIB_CAREYEPLAYER_API __declspec(dllexport)
 
 typedef enum __RENDER_FORMAT
 {
@@ -31,7 +40,7 @@ typedef enum __RENDER_FORMAT
 }RENDER_FORMAT;
 
 
-typedef struct tagEASY_PALYER_OSD
+typedef struct tagCAREYE_PALYER_OSD
 {
 	char	stOSD[1024];
 	DWORD	alpha;		//0-255
@@ -39,38 +48,82 @@ typedef struct tagEASY_PALYER_OSD
 	DWORD	shadowcolor;		//RGB(0x4d,0x4d,0x4d) 全为0背景透明
 	RECT	rect;		//OSD基于图像右上角显示区域
 	int			size;		//just D3D Support
-}EASY_PALYER_OSD;
+}CAREYE_PALYER_OSD;
 
-typedef int (CALLBACK *MediaSourceCallBack)( int _channelId, int *_channelPtr, int _frameType, char *pBuf, RTSP_FRAME_INFO* _frameInfo);
+typedef struct tagCAREYE_MEDIA_INFO
+{
+	unsigned int	video_codec;		/* 音视频格式 */
+	unsigned char	fps;				/* 视频帧率 */
+	unsigned short	width;				/* 视频宽 */
+	unsigned short  height;				/* 视频高 */
 
-LIB_EASYPLAYER_API int EasyPlayer_Init();
-LIB_EASYPLAYER_API void EasyPlayer_Release();
+	unsigned int	audio_codec;		/* 音视频格式 */
+	unsigned int	sample_rate;		/* 音频采样率 */
+	unsigned int	channels;			/* 音频声道数 */
+	unsigned int	bits_per_sample;	/* 音频采样精度 */
 
-LIB_EASYPLAYER_API int EasyPlayer_OpenStream(const char *url, HWND hWnd, RENDER_FORMAT renderFormat, 
+	unsigned int	reserved1;			/* 保留参数1 */
+	unsigned int	reserved2;			/* 保留参数2 */
+
+}CAREYE_MEDIA_INFO;
+
+
+/* 帧信息 */
+typedef struct 
+{
+	unsigned int	codec;				/* 音视频格式 */
+
+	unsigned int	type;				/* 视频帧类型 */
+	unsigned char	fps;				/* 视频帧率 */
+	unsigned short	width;				/* 视频宽 */
+	unsigned short  height;				/* 视频高 */
+
+	unsigned int	reserved1;			/* 保留参数1 */
+	unsigned int	reserved2;			/* 保留参数2 */
+
+	unsigned int	sample_rate;		/* 音频采样率 */
+	unsigned int	channels;			/* 音频声道数 */
+	unsigned int	bits_per_sample;	/* 音频采样精度 */
+
+	unsigned int	length;				/* 音视频帧大小 */
+	unsigned int    timestamp_usec;		/* 时间戳,微妙 */
+	unsigned int	timestamp_sec;		/* 时间戳 秒 */
+
+	float			bitrate;			/* 比特率 */
+	float			losspacket;			/* 丢包率 */
+}CAREYE_RTSP_FRAME_INFO;
+
+
+typedef int (CALLBACK *MediaSourceCallBack)( int _channelId, int *_channelPtr, int _frameType, char *pBuf, CAREYE_RTSP_FRAME_INFO* _frameInfo);
+
+LIB_CAREYEPLAYER_API int CarEyePlayer_Init(const char* key);
+LIB_CAREYEPLAYER_API void CarEyePlayer_Release();
+
+LIB_CAREYEPLAYER_API int CarEyePlayer_OpenStream(const char *url, HWND hWnd, RENDER_FORMAT renderFormat, 
 	int rtpovertcp, const char *username, const char *password, MediaSourceCallBack callback=NULL, void *userPtr=NULL, bool bHardDecode=true);
-LIB_EASYPLAYER_API void EasyPlayer_CloseStream(int channelId);
-LIB_EASYPLAYER_API int EasyPlayer_SetFrameCache(int channelId, int cache);
-LIB_EASYPLAYER_API int EasyPlayer_SetShownToScale(int channelId, int shownToScale);
-LIB_EASYPLAYER_API int EasyPlayer_SetDecodeType(int channelId, int decodeKeyframeOnly);
-LIB_EASYPLAYER_API int EasyPlayer_SetRenderRect(int channelId, LPRECT lpSrcRect);
-LIB_EASYPLAYER_API int EasyPlayer_ShowStatisticalInfo(int channelId, int show);
-LIB_EASYPLAYER_API int EasyPlayer_ShowOSD(int channelId, int show, EASY_PALYER_OSD osd);
-LIB_EASYPLAYER_API int EasyPlayer_GetMediaInfo(int channelId, MEDIA_INFO& mediaInfo);
+LIB_CAREYEPLAYER_API void CarEyePlayer_CloseStream(int channelId);
+LIB_CAREYEPLAYER_API int CarEyePlayer_SetFrameCache(int channelId, int cache);
+LIB_CAREYEPLAYER_API int CarEyePlayer_SetShownToScale(int channelId, int shownToScale);
+LIB_CAREYEPLAYER_API int CarEyePlayer_SetDecodeType(int channelId, int decodeKeyframeOnly);
+LIB_CAREYEPLAYER_API int CarEyePlayer_SetRenderRect(int channelId, LPRECT lpSrcRect);
+LIB_CAREYEPLAYER_API int CarEyePlayer_ShowStatisticalInfo(int channelId, int show);
+LIB_CAREYEPLAYER_API int CarEyePlayer_ShowOSD(int channelId, int show, CAREYE_PALYER_OSD osd);
+LIB_CAREYEPLAYER_API int CarEyePlayer_GetMediaInfo(int channelId, CAREYE_MEDIA_INFO& mediaInfo);
 
-LIB_EASYPLAYER_API int EasyPlayer_SetDragStartPoint(int channelId, POINT pt);
-LIB_EASYPLAYER_API int EasyPlayer_SetDragEndPoint(int channelId, POINT pt);
-LIB_EASYPLAYER_API int EasyPlayer_ResetDragPoint(int channelId);
+LIB_CAREYEPLAYER_API int CarEyePlayer_SetDragStartPoint(int channelId, POINT pt);
+LIB_CAREYEPLAYER_API int CarEyePlayer_SetDragEndPoint(int channelId, POINT pt);
+LIB_CAREYEPLAYER_API int CarEyePlayer_ResetDragPoint(int channelId);
 
-LIB_EASYPLAYER_API int EasyPlayer_StartManuRecording(int channelId);
-LIB_EASYPLAYER_API int EasyPlayer_StopManuRecording(int channelId);
+LIB_CAREYEPLAYER_API int CarEyePlayer_StartManuRecording(int channelId);
+LIB_CAREYEPLAYER_API int CarEyePlayer_StopManuRecording(int channelId);
 
-LIB_EASYPLAYER_API int EasyPlayer_PlaySound(int channelId);
-LIB_EASYPLAYER_API int EasyPlayer_StopSound();
+LIB_CAREYEPLAYER_API int CarEyePlayer_PlaySound(int channelId);
+LIB_CAREYEPLAYER_API int CarEyePlayer_StopSound();
 
-LIB_EASYPLAYER_API int		EasyPlayer_SetManuRecordPath(int channelId, const char* recordPath);
-LIB_EASYPLAYER_API int		EasyPlayer_SetManuPicShotPath(int channelId, const char* shotPath);
+LIB_CAREYEPLAYER_API int		CarEyePlayer_SetManuRecordPath(int channelId, const char* recordPath);
+LIB_CAREYEPLAYER_API int		CarEyePlayer_SetManuPicShotPath(int channelId, const char* shotPath);
 
-LIB_EASYPLAYER_API int		EasyPlayer_StartManuPicShot(int channelId);//pThread->manuScreenshot
-LIB_EASYPLAYER_API int		EasyPlayer_StopManuPicShot(int channelId);
+LIB_CAREYEPLAYER_API int		CarEyePlayer_StartManuPicShot(int channelId);//pThread->manuScreenshot
+LIB_CAREYEPLAYER_API int		CarEyePlayer_StopManuPicShot(int channelId);
 
 #endif

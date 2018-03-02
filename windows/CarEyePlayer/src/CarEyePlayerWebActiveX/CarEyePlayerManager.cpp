@@ -1,20 +1,15 @@
-/*
-	Copyright (c) 2013-2014 EasyDarwin.ORG.  All rights reserved.
-	Github: https://github.com/EasyDarwin
-	WEChat: EasyDarwin
-	Website: http://www.EasyDarwin.org
-*/
+
 #include "StdAfx.h"
 #include "CarEyePlayerManager.h"
 
-EasyPlayerManager::EasyPlayerManager(void)
+CarEyePlayerManager::CarEyePlayerManager(void)
 {
-	memset(&m_sSourceInfo, 0x0, sizeof(EASY_LOCAL_SOURCE_T));
+	memset(&m_sSourceInfo, 0x0, sizeof(CarEye_LOCAL_SOURCE_T));
 	m_sSourceInfo.rtspSourceId = -1;
 
 }
 
-EasyPlayerManager::~EasyPlayerManager(void)
+CarEyePlayerManager::~CarEyePlayerManager(void)
 {
 }
 
@@ -26,7 +21,7 @@ EasyPlayerManager::~EasyPlayerManager(void)
 // 	char szURL[128] = {0,};
 // 	__WCharToMByte(wszURL, szURL, sizeof(szURL)/sizeof(szURL[0]));
 // 	
-int EasyPlayerManager::Start(char* szURL, HWND hShowWnd, 
+int CarEyePlayerManager::Start(char* szURL, HWND hShowWnd, 
 	RENDER_FORMAT eRenderFormat, int rtpovertcp, const char *username, const char *password, int bHardDecode, MediaSourceCallBack callback, void *userPtr) 
 {
 	//Stop
@@ -36,41 +31,41 @@ int EasyPlayerManager::Start(char* szURL, HWND hShowWnd,
 		return -1;
 	}
 
-	m_sSourceInfo.rtspSourceId = EasyPlayer_OpenStream(szURL, hShowWnd, eRenderFormat, 
+	m_sSourceInfo.rtspSourceId = CarEyePlayer_OpenStream(szURL, hShowWnd, eRenderFormat, 
 		rtpovertcp, username, password, callback, userPtr, (bHardDecode==TRUE)?true:false );
 	return	m_sSourceInfo.rtspSourceId ;
 }
  
-void EasyPlayerManager::Config(int nFrameCache,  BOOL bPlaySound, BOOL bShowToScale, BOOL  bShowStatisticInfo )
+void CarEyePlayerManager::Config(int nFrameCache,  BOOL bPlaySound, BOOL bShowToScale, BOOL  bShowStatisticInfo )
 {
 	if (m_sSourceInfo.rtspSourceId > 0)
 	{
-		EasyPlayer_SetFrameCache(m_sSourceInfo.rtspSourceId, nFrameCache);		//ÉèÖÃ»º´æ
-		EasyPlayer_ShowStatisticalInfo(m_sSourceInfo.rtspSourceId, bShowStatisticInfo);
+		CarEyePlayer_SetFrameCache(m_sSourceInfo.rtspSourceId, nFrameCache);		//ÉèÖÃ»º´æ
+		CarEyePlayer_ShowStatisticalInfo(m_sSourceInfo.rtspSourceId, bShowStatisticInfo);
 		//°´±ÈÀýÏÔÊ¾
-		EasyPlayer_SetShownToScale(m_sSourceInfo.rtspSourceId, bShowToScale );
+		CarEyePlayer_SetShownToScale(m_sSourceInfo.rtspSourceId, bShowToScale );
 		if (bPlaySound)
 		{
-			EasyPlayer_PlaySound(m_sSourceInfo.rtspSourceId);
+			CarEyePlayer_PlaySound(m_sSourceInfo.rtspSourceId);
 		}
 	}
 }
 
-void	EasyPlayerManager::Close()
+void	CarEyePlayerManager::Close()
 {
 	if (m_sSourceInfo.rtspSourceId > 0)
 	{
-		EasyPlayer_CloseStream(m_sSourceInfo.rtspSourceId);
+		CarEyePlayer_CloseStream(m_sSourceInfo.rtspSourceId);
 		m_sSourceInfo.rtspSourceId = -1;
 	}
 }
 
-int EasyPlayerManager::InRunning()
+int CarEyePlayerManager::InRunning()
 {
 	return m_sSourceInfo.rtspSourceId;
 }
 
-void EasyPlayerManager::SetOSD(int show, EASY_PALYER_OSD osd)
+void CarEyePlayerManager::SetOSD(int show, CAREYE_PALYER_OSD osd)
 {
-	EasyPlayer_ShowOSD(m_sSourceInfo.rtspSourceId, show,  osd);
+	CarEyePlayer_ShowOSD(m_sSourceInfo.rtspSourceId, show,  osd);
 }

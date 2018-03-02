@@ -6,17 +6,17 @@
 #define WM_TIMER_START_ID 1001
 #define WM_TIMER_CONFIG_ID 1002
 
-// EasyPlayerWebActiveXCtrl.h : CEasyPlayerWebActiveXCtrl ActiveX 控件类的声明。
+// CarEyePlayerWebActiveXCtrl.h : CCarEyePlayerWebActiveXCtrl ActiveX 控件类的声明。
 
-// CEasyPlayerWebActiveXCtrl : 有关实现的信息，请参阅 EasyPlayerWebActiveXCtrl.cpp。
+// CCarEyePlayerWebActiveXCtrl : 有关实现的信息，请参阅 CarEyePlayerWebActiveXCtrl.cpp。
 
-class CEasyPlayerWebActiveXCtrl : public COleControl
+class CCarEyePlayerWebActiveXCtrl : public COleControl
 {
-	DECLARE_DYNCREATE(CEasyPlayerWebActiveXCtrl)
+	DECLARE_DYNCREATE(CCarEyePlayerWebActiveXCtrl)
 
 // 构造函数
 public:
-	CEasyPlayerWebActiveXCtrl();
+	CCarEyePlayerWebActiveXCtrl();
 
 // 重写
 public:
@@ -26,16 +26,16 @@ public:
 
 // 实现
 protected:
-	~CEasyPlayerWebActiveXCtrl();
+	~CCarEyePlayerWebActiveXCtrl();
 
-	BEGIN_OLEFACTORY(CEasyPlayerWebActiveXCtrl)        // 类工厂和 guid
+	BEGIN_OLEFACTORY(CCarEyePlayerWebActiveXCtrl)        // 类工厂和 guid
 		virtual BOOL VerifyUserLicense();
 		virtual BOOL GetLicenseKey(DWORD, BSTR *);
-	END_OLEFACTORY(CEasyPlayerWebActiveXCtrl)
+	END_OLEFACTORY(CCarEyePlayerWebActiveXCtrl)
 
-	DECLARE_OLETYPELIB(CEasyPlayerWebActiveXCtrl)      // GetTypeInfo
-	DECLARE_PROPPAGEIDS(CEasyPlayerWebActiveXCtrl)     // 属性页 ID
-	DECLARE_OLECTLTYPE(CEasyPlayerWebActiveXCtrl)		// 类型名称和杂项状态
+	DECLARE_OLETYPELIB(CCarEyePlayerWebActiveXCtrl)      // GetTypeInfo
+	DECLARE_PROPPAGEIDS(CCarEyePlayerWebActiveXCtrl)     // 属性页 ID
+	DECLARE_OLECTLTYPE(CCarEyePlayerWebActiveXCtrl)		// 类型名称和杂项状态
 
 // 消息映射
 	DECLARE_MESSAGE_MAP()
@@ -67,10 +67,10 @@ protected:
 	void Config(LPCTSTR sFrameCache, LPCTSTR sPlaySound, LPCTSTR sShowToScale, LPCTSTR sShowStatisticInfo);
 	void SetOSD(LPCTSTR show, LPCTSTR alpha, LPCTSTR red, LPCTSTR green, LPCTSTR blue, LPCTSTR left, LPCTSTR top, LPCTSTR right, LPCTSTR bottom, LPCTSTR strOSD);
 	void Close(void);
-	static int CALLBACK EasyPlayerCallBack( int _channelId, int *_channelPtr, int _frameType, char *pBuf, RTSP_FRAME_INFO* _frameInfo);
+	static int CALLBACK CarEyePlayerCallBack( int _channelId, int *_channelPtr, int _frameType, char *pBuf, CAREYE_RTSP_FRAME_INFO* _frameInfo);
 
 private:
-	EasyPlayerManager m_player;
+	CarEyePlayerManager m_player;
 	bool m_bInit;
 
 	char szURL[512] ;

@@ -160,7 +160,7 @@ void	CDlgVideo::SetShownToScale(int shownToScale)
 {
 	if (m_ChannelId > 0)
 	{
-		EasyPlayer_SetShownToScale(m_ChannelId, shownToScale);
+		CarEyePlayer_SetShownToScale(m_ChannelId, shownToScale);
 	}
 }
 
@@ -269,7 +269,7 @@ void	CDlgVideo::DeleteComponents()
 	m_bDestoryWnd = true;
 	if (m_ChannelId > 0)
 	{
-		EasyPlayer_CloseStream(m_ChannelId);
+		CarEyePlayer_CloseStream(m_ChannelId);
 		m_ChannelId = -1;
 	}
 	__DELETE_WINDOW(pDlgRender);
@@ -293,7 +293,7 @@ void CDlgVideo::OnBnClickedButtonPreview()
 	{
 		int nChannelId = m_ChannelId;
 		m_ChannelId = -1;
-		EasyPlayer_CloseStream(nChannelId);
+		CarEyePlayer_CloseStream(nChannelId);
 
  		if (NULL != pDlgRender)	pDlgRender->SetChannelId(m_ChannelId);
 
@@ -344,16 +344,16 @@ void CDlgVideo::OnBnClickedButtonPreview()
 		
 		HWND hWnd = NULL;
 		if (NULL != pDlgRender)	hWnd = pDlgRender->GetSafeHwnd();
-		m_ChannelId = EasyPlayer_OpenStream(szURL, hWnd, (RENDER_FORMAT)RenderFormat, nRtpOverTcp, szUsername, szPassword, &CDlgVideo::EasyPlayerCallBack, this ,bHardDecode);
+		m_ChannelId = CarEyePlayer_OpenStream(szURL, hWnd, (RENDER_FORMAT)RenderFormat, nRtpOverTcp, szUsername, szPassword, &CDlgVideo::CarEyePlayerCallBack, this ,bHardDecode);
 
 		if (m_ChannelId > 0)
 		{
 			int iPos = pSliderCache->GetPos();
-			EasyPlayer_SetFrameCache(m_ChannelId, iPos);		//设置缓存
-			EasyPlayer_PlaySound(m_ChannelId);
+			CarEyePlayer_SetFrameCache(m_ChannelId, iPos);		//设置缓存
+			CarEyePlayer_PlaySound(m_ChannelId);
 
 #if 0	//OSD Example
-			EASY_PALYER_OSD osd;
+			CarEye_PALYER_OSD osd;
 			osd.alpha = 255;
 			osd.size = 35;
 			osd.color = RGB(255,0,255);
@@ -362,19 +362,19 @@ void CDlgVideo::OnBnClickedButtonPreview()
 			osd.rect.top = 100;
 			osd.rect.bottom = 800;
 			osd.shadowcolor = RGB(0,0,0);
-			char* ss =  "这是EasyPlayer-RTSP-Win播放器 \r\n的字幕叠加接口的效果！！！\r\n以\"\\r\\n\"为换行结束符号\r\n注意：每行的长度不能超过128个字节\r\n总的OSD长度不能超过1024个字节";
+			char* ss =  "这是CarEyePlayer-RTSP-Win播放器 \r\n的字幕叠加接口的效果！！！\r\n以\"\\r\\n\"为换行结束符号\r\n注意：每行的长度不能超过128个字节\r\n总的OSD长度不能超过1024个字节";
 			strcpy(osd.stOSD ,ss);
-			EasyPlayer_ShowOSD(m_ChannelId, 1,  osd);
+			CarEyePlayer_ShowOSD(m_ChannelId, 1,  osd);
 #endif
 			CString strFilePath = GET_MODULE_FILE_INFO.strPath;
 			char sFilePath[MAX_PATH];
 			__WCharToMByte(strFilePath.GetBuffer(strFilePath.GetLength()), sFilePath, sizeof(sFilePath)/sizeof(sFilePath[0]));
 
-			EasyPlayer_SetShownToScale(m_ChannelId, shownToScale);
+			CarEyePlayer_SetShownToScale(m_ChannelId, shownToScale);
 
 			// 设置抓图和录制存放路径 [10/10/2016 dingshuai]
-			EasyPlayer_SetManuRecordPath(m_ChannelId, sFilePath);
-			EasyPlayer_SetManuPicShotPath(m_ChannelId, sFilePath);
+			CarEyePlayer_SetManuRecordPath(m_ChannelId, sFilePath);
+			CarEyePlayer_SetManuPicShotPath(m_ChannelId, sFilePath);
 
 			if (NULL != pDlgRender)	pDlgRender->SetChannelId(m_ChannelId);
 
@@ -397,9 +397,9 @@ void CDlgVideo::LogErr(CString strLog)
 	}
 }
 
-int CDlgVideo::EasyPlayerCallBack( int _channelId, int *_channelPtr, int _frameType, char *pBuf, RTSP_FRAME_INFO* _frameInfo)
+int CDlgVideo::CarEyePlayerCallBack( int _channelId, int *_channelPtr, int _frameType, char *pBuf, CAREYE_RTSP_FRAME_INFO* _frameInfo)
 {
-	if (_frameType == EASY_SDK_EVENT_FRAME_FLAG)
+	if (_frameType == CAREYE_SDK_EVENT_FRAME_FLAG)
 	{
 		TRACE( "%s", pBuf  );
 		CDlgVideo* pMaster = (CDlgVideo*)_channelPtr;
@@ -412,12 +412,12 @@ int CDlgVideo::EasyPlayerCallBack( int _channelId, int *_channelPtr, int _frameT
 			CString str = (CString)pBuf;
 			pMaster->LogErr(str);
 		}
-		if (_frameInfo&&_frameInfo->codec == EASY_SDK_EVENT_CODEC_EXIT)
+		if (_frameInfo&&_frameInfo->codec == CAREYE_SDK_EVENT_CODEC_EXIT)
 		{
 			//pMaster->OnBnClickedButtonPreview();
 			if (pMaster->m_ChannelId > 0)
 			{
-				//EasyPlayer_CloseStream(pMaster->m_ChannelId);
+				//CarEyePlayer_CloseStream(pMaster->m_ChannelId);
 				pMaster->m_ChannelId = -1;
 
 				if (NULL != pMaster->pDlgRender)	pMaster->pDlgRender->SetChannelId(pMaster->m_ChannelId);
@@ -427,7 +427,7 @@ int CDlgVideo::EasyPlayerCallBack( int _channelId, int *_channelPtr, int _frameT
 			}
 
 		}
-		else if(_frameInfo && EASY_SDK_DECODE_VIDEO_FLAG == _frameInfo->codec )
+		else if(_frameInfo &&CAREYE_SDK_DECODE_VIDEO_FLAG == _frameInfo->codec )
 		{
 
 		}
@@ -444,7 +444,7 @@ void CDlgVideo::OnBnClickedCheckOsd()
 
 	if (m_ChannelId > 0)
 	{
-		EasyPlayer_ShowStatisticalInfo(m_ChannelId, nShow);
+		CarEyePlayer_ShowStatisticalInfo(m_ChannelId, nShow);
 	}
 }
 
@@ -457,7 +457,7 @@ void CDlgVideo::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		
 		if (m_ChannelId > 0)
 		{
-			EasyPlayer_SetFrameCache(m_ChannelId, iPos);
+			CarEyePlayer_SetFrameCache(m_ChannelId, iPos);
 		}
 	}
 

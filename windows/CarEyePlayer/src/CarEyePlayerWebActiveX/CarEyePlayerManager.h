@@ -1,18 +1,15 @@
-/*
-	Copyright (c) 2013-2014 EasyDarwin.ORG.  All rights reserved.
-	Github: https://github.com/EasyDarwin
-	WEChat: EasyDarwin
-	Website: http://www.EasyDarwin.org
-*/
-// RTSP流接收(播放)管理类，接收音视频流 [11/8/2015 Dingshuai]
-// Add by SwordTwelve
+
 
 #pragma once
 
 #include "../libCarEyePlayer/libCarEyePlayerAPI.h"
 
+#pragma comment(lib,"../libCarEyePlayer/libCarEyePlayer.lib")
+
+#define KEY "6A59754D6A3469576B5A73414D433158714E4C4F6B76464659584E3555477868655756794C6D56345A536C58444661672F704C67523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D"
+
 //Gavin's Source Struct流信息结构
-typedef struct __EASY_LOCAL_SOURCE_T
+typedef struct __CarEye_LOCAL_SOURCE_T
 {	
 	int		rtspSourceId;
 	void*	pusherHandle;
@@ -21,26 +18,26 @@ typedef struct __EASY_LOCAL_SOURCE_T
 	int		pushServerPort;
 	char	sdpName[64];
 	void* pMaster;
-}EASY_LOCAL_SOURCE_T;
+}CarEye_LOCAL_SOURCE_T;
 
-class EasyPlayerManager
+class CarEyePlayerManager
 {
 public:
-	EasyPlayerManager(void);
-	~EasyPlayerManager(void);
+	CarEyePlayerManager(void);
+	~CarEyePlayerManager(void);
 
 	//Member Function
 public:
 	//初始化
 	static int Init()
 	{
-		return EasyPlayer_Init();
+		return CarEyePlayer_Init(KEY);
 	}
 
 	// 释放
 	static void UnInit()
 	{
-		EasyPlayer_Release();
+		CarEyePlayer_Release();
 	}
 
 	//打开流
@@ -49,13 +46,13 @@ public:
 	void Config(int nFrameCache,  BOOL bPlaySound, BOOL bShowToScale = TRUE, BOOL  bShowStatisticInfo = FALSE);
 	//关闭流
 	void	Close();
-	void SetOSD(int show, EASY_PALYER_OSD osd);
+	void SetOSD(int show, CAREYE_PALYER_OSD osd);
 	int InRunning();
 
 	//Member Var
 private:
 	//接收的流信息
-	EASY_LOCAL_SOURCE_T		m_sSourceInfo;
+	CarEye_LOCAL_SOURCE_T		m_sSourceInfo;
 
 };
 

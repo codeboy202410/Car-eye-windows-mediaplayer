@@ -23,8 +23,8 @@ public:
 	afx_msg void OnPaint();
 
 private:
-	//IDB_PNG_EASYLOGO
-	CImageEx	* m_pEasyLogo;
+	//IDB_PNG_CarEyeLOGO
+	CImageEx	* m_pCarEyeLogo;
 	BOOL m_bFuulScreen ;
 	CRect m_rcVideoSingle;
 	CWnd* m_pMainCtrl;

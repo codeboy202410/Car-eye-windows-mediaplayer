@@ -1,4 +1,4 @@
-// EasyPlayerWebActiveXCtrl.cpp : CEasyPlayerWebActiveXCtrl ActiveX 控件类的实现。
+// CarEyePlayerWebActiveXCtrl.cpp : CCarEyePlayerWebActiveXCtrl ActiveX 控件类的实现。
 
 #include "stdafx.h"
 #include "CarEyePlayerWebActiveX.h"
@@ -12,13 +12,13 @@
 #endif
 
 
-IMPLEMENT_DYNCREATE(CEasyPlayerWebActiveXCtrl, COleControl)
+IMPLEMENT_DYNCREATE(CCarEyePlayerWebActiveXCtrl, COleControl)
 
 
 
 // 消息映射
 
-BEGIN_MESSAGE_MAP(CEasyPlayerWebActiveXCtrl, COleControl)
+BEGIN_MESSAGE_MAP(CCarEyePlayerWebActiveXCtrl, COleControl)
 	ON_OLEVERB(AFX_IDS_VERB_EDIT, OnEdit)
 	ON_OLEVERB(AFX_IDS_VERB_PROPERTIES, OnProperties)
 	ON_WM_CREATE()
@@ -30,12 +30,12 @@ END_MESSAGE_MAP()
 
 // 调度映射
 
-BEGIN_DISPATCH_MAP(CEasyPlayerWebActiveXCtrl, COleControl)
-	DISP_FUNCTION_ID(CEasyPlayerWebActiveXCtrl, "AboutBox", DISPID_ABOUTBOX, AboutBox, VT_EMPTY, VTS_NONE)
-	DISP_FUNCTION_ID(CEasyPlayerWebActiveXCtrl, "Start", dispidStart, Start, VT_I4, VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR)
-	DISP_FUNCTION_ID(CEasyPlayerWebActiveXCtrl, "Config", dispidConfig, Config, VT_EMPTY, VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR)
-	DISP_FUNCTION_ID(CEasyPlayerWebActiveXCtrl, "Close", dispidClose, Close, VT_EMPTY, VTS_NONE)
-	DISP_FUNCTION_ID(CEasyPlayerWebActiveXCtrl, "SetOSD", dispidSetOSD, SetOSD, VT_EMPTY, VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR)
+BEGIN_DISPATCH_MAP(CCarEyePlayerWebActiveXCtrl, COleControl)
+	DISP_FUNCTION_ID(CCarEyePlayerWebActiveXCtrl, "AboutBox", DISPID_ABOUTBOX, AboutBox, VT_EMPTY, VTS_NONE)
+	DISP_FUNCTION_ID(CCarEyePlayerWebActiveXCtrl, "Start", dispidStart, Start, VT_I4, VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR)
+	DISP_FUNCTION_ID(CCarEyePlayerWebActiveXCtrl, "Config", dispidConfig, Config, VT_EMPTY, VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR)
+	DISP_FUNCTION_ID(CCarEyePlayerWebActiveXCtrl, "Close", dispidClose, Close, VT_EMPTY, VTS_NONE)
+	DISP_FUNCTION_ID(CCarEyePlayerWebActiveXCtrl, "SetOSD", dispidSetOSD, SetOSD, VT_EMPTY, VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR VTS_BSTR)
 
 END_DISPATCH_MAP()
 
@@ -43,7 +43,7 @@ END_DISPATCH_MAP()
 
 // 事件映射
 
-BEGIN_EVENT_MAP(CEasyPlayerWebActiveXCtrl, COleControl)
+BEGIN_EVENT_MAP(CCarEyePlayerWebActiveXCtrl, COleControl)
 	EVENT_CUSTOM_ID("OnPlayEvent", eventidOnPlayEvent, OnPlayEvent, VTS_BSTR)
 END_EVENT_MAP()
 
@@ -52,48 +52,48 @@ END_EVENT_MAP()
 // 属性页
 
 // TODO: 按需要添加更多属性页。请记住增加计数!
-BEGIN_PROPPAGEIDS(CEasyPlayerWebActiveXCtrl, 1)
-	PROPPAGEID(CEasyPlayerWebActiveXPropPage::guid)
-END_PROPPAGEIDS(CEasyPlayerWebActiveXCtrl)
+BEGIN_PROPPAGEIDS(CCarEyePlayerWebActiveXCtrl, 1)
+	PROPPAGEID(CCarEyePlayerWebActiveXPropPage::guid)
+END_PROPPAGEIDS(CCarEyePlayerWebActiveXCtrl)
 
 
 
 // 初始化类工厂和 guid
 
-IMPLEMENT_OLECREATE_EX(CEasyPlayerWebActiveXCtrl, "EASYPLAYERWEBACT.EasyPlayerWebActCtrl.1",
+IMPLEMENT_OLECREATE_EX(CCarEyePlayerWebActiveXCtrl, "CarEyePLAYERWEBACT.CarEyePlayerWebActCtrl.1",
 	0x1ee1c648, 0xf4a9, 0x42f9, 0x9a, 0xa7, 0x2c, 0x8e, 0x3a, 0xf7, 0xb7, 0xfd)
 
 
 
 // 键入库 ID 和版本
 
-IMPLEMENT_OLETYPELIB(CEasyPlayerWebActiveXCtrl, _tlid, _wVerMajor, _wVerMinor)
+IMPLEMENT_OLETYPELIB(CCarEyePlayerWebActiveXCtrl, _tlid, _wVerMajor, _wVerMinor)
 
 
 
 // 接口 ID
 
-const IID IID_DEasyPlayerWebActiveX = { 0xFB5E35A6, 0x2538, 0x47C4, { 0x9B, 0x40, 0xB0, 0xFB, 0x6A, 0x0, 0xDE, 0xA0 } };
-const IID IID_DEasyPlayerWebActiveXEvents = { 0x66887A6D, 0xC75B, 0x48B8, { 0xB5, 0xE1, 0xBD, 0x72, 0x2D, 0x87, 0x59, 0x23 } };
+const IID IID_DCarEyePlayerWebActiveX = { 0xFB5E35A6, 0x2538, 0x47C4, { 0x9B, 0x40, 0xB0, 0xFB, 0x6A, 0x0, 0xDE, 0xA0 } };
+const IID IID_DCarEyePlayerWebActiveXEvents = { 0x66887A6D, 0xC75B, 0x48B8, { 0xB5, 0xE1, 0xBD, 0x72, 0x2D, 0x87, 0x59, 0x23 } };
 
 
 // 控件类型信息
 
-static const DWORD _dwEasyPlayerWebActiveXOleMisc =
+static const DWORD _dwCarEyePlayerWebActiveXOleMisc =
 	OLEMISC_ACTIVATEWHENVISIBLE |
 	OLEMISC_SETCLIENTSITEFIRST |
 	OLEMISC_INSIDEOUT |
 	OLEMISC_CANTLINKINSIDE |
 	OLEMISC_RECOMPOSEONRESIZE;
 
-IMPLEMENT_OLECTLTYPE(CEasyPlayerWebActiveXCtrl, IDS_EASYPLAYERWEBACTIVEX, _dwEasyPlayerWebActiveXOleMisc)
+IMPLEMENT_OLECTLTYPE(CCarEyePlayerWebActiveXCtrl, IDS_CarEyePLAYERWEBACTIVEX, _dwCarEyePlayerWebActiveXOleMisc)
 
 
 
-// CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrlFactory::UpdateRegistry -
-// 添加或移除 CEasyPlayerWebActiveXCtrl 的系统注册表项
+// CCarEyePlayerWebActiveXCtrl::CCarEyePlayerWebActiveXCtrlFactory::UpdateRegistry -
+// 添加或移除 CCarEyePlayerWebActiveXCtrl 的系统注册表项
 
-BOOL CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrlFactory::UpdateRegistry(BOOL bRegister)
+BOOL CCarEyePlayerWebActiveXCtrl::CCarEyePlayerWebActiveXCtrlFactory::UpdateRegistry(BOOL bRegister)
 {
 	// TODO: 验证您的控件是否符合单元模型线程处理规则。
 	// 有关更多信息，请参考 MFC 技术说明 64。
@@ -106,10 +106,10 @@ BOOL CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrlFactory::UpdateRegistry
 			AfxGetInstanceHandle(),
 			m_clsid,
 			m_lpszProgID,
-			IDS_EASYPLAYERWEBACTIVEX,
-			IDB_EASYPLAYERWEBACTIVEX,
+			IDS_CarEyePLAYERWEBACTIVEX,
+			IDB_CarEyePLAYERWEBACTIVEX,
 			afxRegInsertable | afxRegApartmentThreading,
-			_dwEasyPlayerWebActiveXOleMisc,
+			_dwCarEyePlayerWebActiveXOleMisc,
 			_tlid,
 			_wVerMajor,
 			_wVerMinor);
@@ -127,10 +127,10 @@ static const WCHAR _szLicString[] = L"Copyright (c) 2016 ";
 
 
 
-// CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrlFactory::VerifyUserLicense -
+// CCarEyePlayerWebActiveXCtrl::CCarEyePlayerWebActiveXCtrlFactory::VerifyUserLicense -
 // 检查是否存在用户许可证
 
-BOOL CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrlFactory::VerifyUserLicense()
+BOOL CCarEyePlayerWebActiveXCtrl::CCarEyePlayerWebActiveXCtrlFactory::VerifyUserLicense()
 {
 	return AfxVerifyLicFile(AfxGetInstanceHandle(), _szLicFileName,
 		_szLicString);
@@ -138,10 +138,10 @@ BOOL CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrlFactory::VerifyUserLice
 
 
 
-// CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrlFactory::GetLicenseKey -
+// CCarEyePlayerWebActiveXCtrl::CCarEyePlayerWebActiveXCtrlFactory::GetLicenseKey -
 // 返回运行时授权密钥
 
-BOOL CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrlFactory::GetLicenseKey(DWORD dwReserved,
+BOOL CCarEyePlayerWebActiveXCtrl::CCarEyePlayerWebActiveXCtrlFactory::GetLicenseKey(DWORD dwReserved,
 	BSTR *pbstrKey)
 {
 	if (pbstrKey == NULL)
@@ -153,11 +153,11 @@ BOOL CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrlFactory::GetLicenseKey(
 
 
 
-// CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrl - 构造函数
+// CCarEyePlayerWebActiveXCtrl::CCarEyePlayerWebActiveXCtrl - 构造函数
 
-CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrl()
+CCarEyePlayerWebActiveXCtrl::CCarEyePlayerWebActiveXCtrl()
 {
-	InitializeIIDs(&IID_DEasyPlayerWebActiveX, &IID_DEasyPlayerWebActiveXEvents);
+	InitializeIIDs(&IID_DCarEyePlayerWebActiveX, &IID_DCarEyePlayerWebActiveXEvents);
 	// TODO: 在此初始化控件的实例数据。
 	m_bInit = false;
 
@@ -175,9 +175,9 @@ CEasyPlayerWebActiveXCtrl::CEasyPlayerWebActiveXCtrl()
 
 
 
-// CEasyPlayerWebActiveXCtrl::~CEasyPlayerWebActiveXCtrl - 析构函数
+// CCarEyePlayerWebActiveXCtrl::~CCarEyePlayerWebActiveXCtrl - 析构函数
 
-CEasyPlayerWebActiveXCtrl::~CEasyPlayerWebActiveXCtrl()
+CCarEyePlayerWebActiveXCtrl::~CCarEyePlayerWebActiveXCtrl()
 {
 	// TODO: 在此清理控件的实例数据。
 
@@ -188,7 +188,7 @@ CEasyPlayerWebActiveXCtrl::~CEasyPlayerWebActiveXCtrl()
 // CE	AfxMessageBox(_T("页面已经关闭，重新加载OCX"));
 
 
-void CEasyPlayerWebActiveXCtrl::OnDraw(
+void CCarEyePlayerWebActiveXCtrl::OnDraw(
 			CDC* pdc, const CRect& rcBounds, const CRect& rcInvalid)
 {
 	if (!pdc)
@@ -212,9 +212,9 @@ void CEasyPlayerWebActiveXCtrl::OnDraw(
 
 
 
-// CEasyPlayerWebActiveXCtrl::DoPropExchange - 持久性支持
+// CCarEyePlayerWebActiveXCtrl::DoPropExchange - 持久性支持
 
-void CEasyPlayerWebActiveXCtrl::DoPropExchange(CPropExchange* pPX)
+void CCarEyePlayerWebActiveXCtrl::DoPropExchange(CPropExchange* pPX)
 {
 	ExchangeVersion(pPX, MAKELONG(_wVerMinor, _wVerMajor));
 	COleControl::DoPropExchange(pPX);
@@ -224,9 +224,9 @@ void CEasyPlayerWebActiveXCtrl::DoPropExchange(CPropExchange* pPX)
 
 
 
-// CEasyPlayerWebActiveXCtrl::OnResetState - 将控件重置为默认状态
+// CCarEyePlayerWebActiveXCtrl::OnResetState - 将控件重置为默认状态
 
-void CEasyPlayerWebActiveXCtrl::OnResetState()
+void CCarEyePlayerWebActiveXCtrl::OnResetState()
 {
 	COleControl::OnResetState();  // 重置 DoPropExchange 中找到的默认值
 
@@ -235,20 +235,20 @@ void CEasyPlayerWebActiveXCtrl::OnResetState()
 
 
 
-// CEasyPlayerWebActiveXCtrl::AboutBox - 向用户显示“关于”框
+// CCarEyePlayerWebActiveXCtrl::AboutBox - 向用户显示“关于”框
 
-void CEasyPlayerWebActiveXCtrl::AboutBox()
+void CCarEyePlayerWebActiveXCtrl::AboutBox()
 {
-	CDialogEx dlgAbout(IDD_ABOUTBOX_EASYPLAYERWEBACTIVEX);
+	CDialogEx dlgAbout(IDD_ABOUTBOX_CarEyePLAYERWEBACTIVEX);
 	dlgAbout.DoModal();
 }
 
 
 
-// CEasyPlayerWebActiveXCtrl 消息处理程序
+// CCarEyePlayerWebActiveXCtrl 消息处理程序
 
 
-int CEasyPlayerWebActiveXCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int CCarEyePlayerWebActiveXCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (COleControl::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -261,7 +261,7 @@ int CEasyPlayerWebActiveXCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 }
 
 
-void CEasyPlayerWebActiveXCtrl::OnDestroy()
+void CCarEyePlayerWebActiveXCtrl::OnDestroy()
 {
 	COleControl::OnDestroy();
 	// TODO: 在此处添加消息处理程序代码
@@ -269,20 +269,20 @@ void CEasyPlayerWebActiveXCtrl::OnDestroy()
 
 }
 
-int CEasyPlayerWebActiveXCtrl::EasyPlayerCallBack( int _channelId, int *_channelPtr, int _frameType, char *pBuf, RTSP_FRAME_INFO* _frameInfo)
+int CCarEyePlayerWebActiveXCtrl::CarEyePlayerCallBack( int _channelId, int *_channelPtr, int _frameType, char *pBuf, CAREYE_RTSP_FRAME_INFO* _frameInfo)
 {
-	if (_frameType == EASY_SDK_EVENT_FRAME_FLAG)
+	if (_frameType == CAREYE_SDK_EVENT_FRAME_FLAG)
 	{
 		//TRACE( "%s", pBuf  );
-		CEasyPlayerWebActiveXCtrl* pMaster = (CEasyPlayerWebActiveXCtrl*)_channelPtr;
+		CCarEyePlayerWebActiveXCtrl* pMaster = (CCarEyePlayerWebActiveXCtrl*)_channelPtr;
 		if (pMaster && _frameInfo)
 		{
-			if (_frameInfo->codec == EASY_SDK_EVENT_CODEC_EXIT)
+			if (_frameInfo->codec == CAREYE_SDK_EVENT_CODEC_EXIT)
 			{
 					if (NULL !=pMaster->m_pActiveDlg)			
 						pMaster->m_pActiveDlg.Invalidate();
 			}
-			else if (_frameInfo->codec == EASY_SDK_EVENT_CODEC_ERROR)
+			else if (_frameInfo->codec == CAREYE_SDK_EVENT_CODEC_ERROR)
 			{
 				CString sErrorMsg = (CString)pBuf;
 				pMaster->OnPlayEvent(sErrorMsg);
@@ -299,7 +299,7 @@ int CEasyPlayerWebActiveXCtrl::EasyPlayerCallBack( int _channelId, int *_channel
 	return 0;
 }
 
-LONG CEasyPlayerWebActiveXCtrl::Start(LPCTSTR sURL, LPCTSTR sRenderFormat, LPCTSTR sUserName, LPCTSTR sPassword, LPCTSTR sHardDecord)
+LONG CCarEyePlayerWebActiveXCtrl::Start(LPCTSTR sURL, LPCTSTR sRenderFormat, LPCTSTR sUserName, LPCTSTR sPassword, LPCTSTR sHardDecord)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	// TODO: 在此添加调度处理程序代码
@@ -360,7 +360,7 @@ LONG CEasyPlayerWebActiveXCtrl::Start(LPCTSTR sURL, LPCTSTR sRenderFormat, LPCTS
 			break;
 		}
 
-		nRet = m_player.Start(szURL, m_pActiveDlg.GetSafeHwnd(), eRenderFormat , 1, szUserName , szPassword, nHardDecode, &CEasyPlayerWebActiveXCtrl::EasyPlayerCallBack, this);
+		nRet = m_player.Start(szURL, m_pActiveDlg.GetSafeHwnd(), eRenderFormat , 1, szUserName , szPassword, nHardDecode, &CCarEyePlayerWebActiveXCtrl::CarEyePlayerCallBack, this);
 
 	}
 	else
@@ -372,7 +372,7 @@ LONG CEasyPlayerWebActiveXCtrl::Start(LPCTSTR sURL, LPCTSTR sRenderFormat, LPCTS
 }
 
 
-void CEasyPlayerWebActiveXCtrl::Config(LPCTSTR sFrameCache, LPCTSTR sPlaySound, LPCTSTR sShowToScale, LPCTSTR sShowStatisticInfo )
+void CCarEyePlayerWebActiveXCtrl::Config(LPCTSTR sFrameCache, LPCTSTR sPlaySound, LPCTSTR sShowToScale, LPCTSTR sShowStatisticInfo )
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	// TODO: 在此添加调度处理程序代码
@@ -414,7 +414,7 @@ void CEasyPlayerWebActiveXCtrl::Config(LPCTSTR sFrameCache, LPCTSTR sPlaySound, 
 }
 
 
-void CEasyPlayerWebActiveXCtrl::SetOSD(LPCTSTR show, LPCTSTR alpha, LPCTSTR red, LPCTSTR green, LPCTSTR blue, 
+void CCarEyePlayerWebActiveXCtrl::SetOSD(LPCTSTR show, LPCTSTR alpha, LPCTSTR red, LPCTSTR green, LPCTSTR blue, 
 	LPCTSTR left, LPCTSTR top, LPCTSTR right, LPCTSTR bottom, LPCTSTR strOSD)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
@@ -432,7 +432,7 @@ void CEasyPlayerWebActiveXCtrl::SetOSD(LPCTSTR show, LPCTSTR alpha, LPCTSTR red,
 		char szright[128] = {0,};
 		char szbottom[128] = {0,};
 
-		EASY_PALYER_OSD osd;
+		CAREYE_PALYER_OSD osd;
 		memset(&osd, 0x00, sizeof(osd));
 		int R,G,B = 0;
 		int bShow = 0;
@@ -492,7 +492,7 @@ void CEasyPlayerWebActiveXCtrl::SetOSD(LPCTSTR show, LPCTSTR alpha, LPCTSTR red,
 	}
 }
 
-void CEasyPlayerWebActiveXCtrl::Close(void)
+void CCarEyePlayerWebActiveXCtrl::Close(void)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 
@@ -500,12 +500,12 @@ void CEasyPlayerWebActiveXCtrl::Close(void)
 	m_player.Close();
 }
 
-void CEasyPlayerWebActiveXCtrl::OnSetClientSite()
+void CCarEyePlayerWebActiveXCtrl::OnSetClientSite()
 {
 	// TODO: 
 	if (m_pClientSite) 
 	{
-		int ret = EasyPlayerManager::Init();
+		int ret = CarEyePlayerManager::Init();
 #if 0
 		CString str = _T("");
 		str.Format(_T("Init = %d"), ret);
@@ -519,7 +519,7 @@ void CEasyPlayerWebActiveXCtrl::OnSetClientSite()
 	{
 		Close();
 		// 调用刷新会报错 [10/12/2017 dingshuai]
-		//EasyPlayerManager::UnInit();
+		//CarEyePlayerManager::UnInit();
 		//AfxMessageBox(_T("页面已经关闭，重新加载OCX"));
 		DestroyWindow();
 		m_bInit = false;
@@ -528,7 +528,7 @@ void CEasyPlayerWebActiveXCtrl::OnSetClientSite()
 	COleControl::OnSetClientSite();
 }
 
-void CEasyPlayerWebActiveXCtrl::OnTimer(UINT_PTR nIDEvent)
+void CCarEyePlayerWebActiveXCtrl::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 
 	switch (nIDEvent)

@@ -1,5 +1,5 @@
 
-// EasyPlayerDlg.h : 头文件
+// CarEyePlayerDlg.h : 头文件
 //
 
 #pragma once
@@ -22,12 +22,12 @@ typedef struct __VIDEO_NODE_T
 
 static int shownToScale = 0x01;
 
-// CEasyPlayerDlg 对话框
-class CEasyPlayerDlg : public CSkinDialog
+// CCarEyePlayerDlg 对话框
+class CCarEyePlayerDlg : public CSkinDialog
 {
 // 构造
 public:
-	CEasyPlayerDlg(CWnd* pParent = NULL);	// 标准构造函数
+	CCarEyePlayerDlg(CWnd* pParent = NULL);	// 标准构造函数
 
 
 public:

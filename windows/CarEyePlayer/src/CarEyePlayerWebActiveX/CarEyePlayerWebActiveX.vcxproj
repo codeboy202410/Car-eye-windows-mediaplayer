@@ -43,12 +43,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetExt>.ocx</TargetExt>
-    <OutDir>..\..\..\Bin\C++\</OutDir>
+    <OutDir>..\..\bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <TargetExt>.ocx</TargetExt>
-    <OutDir>..\..\..\Bin\C++\</OutDir>
+    <OutDir>..\..\bin\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -61,7 +61,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>.\CarEyePlayerWebActiveX.def</ModuleDefinitionFile>
-      <OutputFile>..\..\..\Bin\C++\$(ProjectName).ocx</OutputFile>
+      <OutputFile>..\..\bin\$(ProjectName).ocx</OutputFile>
       <RegisterOutput>false</RegisterOutput>
       <AdditionalDependencies>
       </AdditionalDependencies>
@@ -80,7 +80,7 @@
     </ResourceCompile>
     <PostBuildEvent>
       <Message>正在复制运行时许可证</Message>
-      <Command>copy "CarEyePlayerWebActiveX.lic" "$(OutDir)"</Command>
+      <Command>copy "CarEyePlayerWebPlugin.lic" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -98,7 +98,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>.\CarEyePlayerWebActiveX.def</ModuleDefinitionFile>
-      <OutputFile>..\..\..\Bin\C++\$(ProjectName).ocx</OutputFile>
+      <OutputFile>..\..\bin\$(ProjectName).ocx</OutputFile>
       <RegisterOutput>true</RegisterOutput>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <AdditionalDependencies>
@@ -158,11 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="CarEyePlayerWebActiveX.idl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\libCarEyePlayer\libCarEyePlayer.vcxproj">
-      <Project>{bc0300e0-e5d5-4a49-88b4-4e79dff5f1cc}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

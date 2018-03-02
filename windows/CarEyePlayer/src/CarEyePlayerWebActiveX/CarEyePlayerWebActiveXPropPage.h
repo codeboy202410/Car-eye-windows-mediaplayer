@@ -1,21 +1,21 @@
 #pragma once
 
-// EasyPlayerWebActiveXPropPage.h : CEasyPlayerWebActiveXPropPage 属性页类的声明。
+// CarEyePlayerWebActiveXPropPage.h : CCarEyePlayerWebActiveXPropPage 属性页类的声明。
 
 
-// CEasyPlayerWebActiveXPropPage : 有关实现的信息，请参阅 EasyPlayerWebActiveXPropPage.cpp。
+// CCarEyePlayerWebActiveXPropPage : 有关实现的信息，请参阅 CarEyePlayerWebActiveXPropPage.cpp。
 
-class CEasyPlayerWebActiveXPropPage : public COlePropertyPage
+class CCarEyePlayerWebActiveXPropPage : public COlePropertyPage
 {
-	DECLARE_DYNCREATE(CEasyPlayerWebActiveXPropPage)
-	DECLARE_OLECREATE_EX(CEasyPlayerWebActiveXPropPage)
+	DECLARE_DYNCREATE(CCarEyePlayerWebActiveXPropPage)
+	DECLARE_OLECREATE_EX(CCarEyePlayerWebActiveXPropPage)
 
 // 构造函数
 public:
-	CEasyPlayerWebActiveXPropPage();
+	CCarEyePlayerWebActiveXPropPage();
 
 // 对话框数据
-	enum { IDD = IDD_PROPPAGE_EASYPLAYERWEBACTIVEX };
+	enum { IDD = IDD_PROPPAGE_CarEyePLAYERWEBACTIVEX };
 
 // 实现
 protected:

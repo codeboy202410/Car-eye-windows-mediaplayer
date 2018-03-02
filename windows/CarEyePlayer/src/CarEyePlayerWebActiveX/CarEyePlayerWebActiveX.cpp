@@ -1,4 +1,4 @@
-// EasyPlayerWebActiveX.cpp : CEasyPlayerWebActiveXApp 和 DLL 注册的实现。
+// CarEyePlayerWebActiveX.cpp : CCarEyePlayerWebActiveXApp 和 DLL 注册的实现。
 
 #include "stdafx.h"
 #include "CarEyePlayerWebActiveX.h"
@@ -11,7 +11,7 @@
 #endif
 
 
-CEasyPlayerWebActiveXApp theApp;
+CCarEyePlayerWebActiveXApp theApp;
 
 const GUID CDECL _tlid = { 0xE7319905, 0x7F58, 0x422D, { 0x9A, 0xF6, 0x29, 0x20, 0x78, 0xB8, 0x5D, 0x1C } };
 const WORD _wVerMajor = 1;
@@ -23,9 +23,9 @@ const GUID CDECL SAFE_CODE CLSID_SafeItem =
 { 0x1ee1c648, 0xf4a9, 0x42f9, { 0x9a, 0xa7, 0x2c, 0x8e, 0x3a, 0xf7, 0xb7, 0xfd } };
 
 
-// CEasyPlayerWebActiveXApp::InitInstance - DLL 初始化
+// CCarEyePlayerWebActiveXApp::InitInstance - DLL 初始化
 
-BOOL CEasyPlayerWebActiveXApp::InitInstance()
+BOOL CCarEyePlayerWebActiveXApp::InitInstance()
 {
 	BOOL bInit = COleControlModule::InitInstance();
 
@@ -39,9 +39,9 @@ BOOL CEasyPlayerWebActiveXApp::InitInstance()
 
 
 
-// CEasyPlayerWebActiveXApp::ExitInstance - DLL 终止
+// CCarEyePlayerWebActiveXApp::ExitInstance - DLL 终止
 
-int CEasyPlayerWebActiveXApp::ExitInstance()
+int CCarEyePlayerWebActiveXApp::ExitInstance()
 {
 	// TODO: 在此添加您自己的模块终止代码。
 

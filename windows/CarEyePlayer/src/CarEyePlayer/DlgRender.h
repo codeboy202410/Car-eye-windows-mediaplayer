@@ -39,7 +39,7 @@ public:
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 
 private:
-	CImageEx	* m_pEasyLogo;
+	CImageEx	* m_pCarEyeLogo;
 
 public:
 	afx_msg void OnPaint();

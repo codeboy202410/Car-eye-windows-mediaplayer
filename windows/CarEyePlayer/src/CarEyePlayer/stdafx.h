@@ -39,7 +39,7 @@
 
 #include "resource.h"
 
-// EasySkinUI的支持
+// CarEyeSkinUI的支持
 //图片控件
 #import "ImageOle.dll" named_guids
 

@@ -1,5 +1,5 @@
 
-// EasyPlayer.cpp : 定义应用程序的类行为。
+// CarEyePlayer.cpp : 定义应用程序的类行为。
 //
 
 #include "stdafx.h"
@@ -11,16 +11,16 @@
 #endif
 
 
-// CEasyPlayerApp
+// CCarEyePlayerApp
 
-BEGIN_MESSAGE_MAP(CEasyPlayerApp, CWinApp)
+BEGIN_MESSAGE_MAP(CCarEyePlayerApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
 
-// CEasyPlayerApp 构造
+// CCarEyePlayerApp 构造
 
-CEasyPlayerApp::CEasyPlayerApp()
+CCarEyePlayerApp::CCarEyePlayerApp()
 {
 	// 支持重新启动管理器
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
@@ -30,14 +30,14 @@ CEasyPlayerApp::CEasyPlayerApp()
 }
 
 
-// 唯一的一个 CEasyPlayerApp 对象
+// 唯一的一个 CCarEyePlayerApp 对象
 
-CEasyPlayerApp theApp;
+CCarEyePlayerApp theApp;
 
 
-// CEasyPlayerApp 初始化
+// CCarEyePlayerApp 初始化
 
-BOOL CEasyPlayerApp::InitInstance()
+BOOL CCarEyePlayerApp::InitInstance()
 {
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要
 	// 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
@@ -66,7 +66,7 @@ BOOL CEasyPlayerApp::InitInstance()
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
-	CEasyPlayerDlg dlg;
+	CCarEyePlayerDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)
@@ -91,7 +91,7 @@ BOOL CEasyPlayerApp::InitInstance()
 	return FALSE;
 }
 
-BOOL CEasyPlayerApp::PreTranslateMessage(MSG* pMsg)
+BOOL CCarEyePlayerApp::PreTranslateMessage(MSG* pMsg)
 {
 	if (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE)
 	{
@@ -101,7 +101,7 @@ BOOL CEasyPlayerApp::PreTranslateMessage(MSG* pMsg)
 	return CWinApp::PreTranslateMessage(pMsg);
 }
 
-int CEasyPlayerApp::ExitInstance()
+int CCarEyePlayerApp::ExitInstance()
 {
 	RemoveHookScrollBar();
 	return CWinApp::ExitInstance();

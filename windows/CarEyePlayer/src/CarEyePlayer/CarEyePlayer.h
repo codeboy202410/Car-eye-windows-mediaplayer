@@ -1,5 +1,5 @@
 
-// EasyPlayer.h : PROJECT_NAME 应用程序的主头文件
+// CarEyePlayer.h : PROJECT_NAME 应用程序的主头文件
 //
 
 #pragma once
@@ -25,14 +25,14 @@ const ModuleFileInfomations&    GetModuleFileInformations();
 
 #define GET_MODULE_FILE_INFO    (GetModuleFileInformations())
 
-// CEasyPlayerApp:
-// 有关此类的实现，请参阅 EasyPlayer.cpp
+// CCarEyePlayerApp:
+// 有关此类的实现，请参阅 CarEyePlayer.cpp
 //
 
-class CEasyPlayerApp : public CWinApp
+class CCarEyePlayerApp : public CWinApp
 {
 public:
-	CEasyPlayerApp();
+	CCarEyePlayerApp();
 
 // 重写
 public:
@@ -45,4 +45,4 @@ public:
 	virtual int ExitInstance();
 };
 
-extern CEasyPlayerApp theApp;
+extern CCarEyePlayerApp theApp;

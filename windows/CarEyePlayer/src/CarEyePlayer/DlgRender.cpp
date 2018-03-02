@@ -18,7 +18,7 @@ CDlgRender::CDlgRender(CWnd* pParent /*=NULL*/)
 	memset(&channelStatus, 0x00, sizeof(CHANNELSTATUS));
 	hMenu		=	NULL;
 
-	m_pEasyLogo = NULL;
+	m_pCarEyeLogo = NULL;
 	channelStatus.showOSD = 0;
 	mChannelId	=	0;
 }
@@ -26,7 +26,7 @@ CDlgRender::CDlgRender(CWnd* pParent /*=NULL*/)
 CDlgRender::~CDlgRender()
 {
 	ClosePopupMenu();
-	UIRenderEngine->RemoveImage(m_pEasyLogo);
+	UIRenderEngine->RemoveImage(m_pCarEyeLogo);
 
 }
 
@@ -97,8 +97,8 @@ BOOL CDlgRender::OnCommand(WPARAM wParam, LPARAM lParam)
 			{
 				channelStatus.recording = (channelStatus.recording==0x00?0x01:0x00);
 
-				if (channelStatus.recording == 0x01)			EasyPlayer_StartManuRecording(mChannelId);
-				else											EasyPlayer_StopManuRecording(mChannelId);
+				if (channelStatus.recording == 0x01)			CarEyePlayer_StartManuRecording(mChannelId);
+				else											CarEyePlayer_StopManuRecording(mChannelId);
 			}
 		}
 		break;
@@ -106,24 +106,24 @@ BOOL CDlgRender::OnCommand(WPARAM wParam, LPARAM lParam)
 		{
 			if (mChannelId > 0)
 			{
-				EasyPlayer_StartManuPicShot(mChannelId);
+				CarEyePlayer_StartManuPicShot(mChannelId);
 				// 				channelStatus.shoting = (channelStatus.shoting==0x00?0x01:0x00);
 				// 
-				// 				if (channelStatus.shoting == 0x01)			EasyPlayer_StartManuPicShot(mChannelId);
-				// 				else											EasyPlayer_StopManuPicShot(mChannelId);
+				// 				if (channelStatus.shoting == 0x01)			CarEyePlayer_StartManuPicShot(mChannelId);
+				// 				else											CarEyePlayer_StopManuPicShot(mChannelId);
 			}
 		}
 		break;
 	case POP_MENU_SHOWOSD:
 		if (mChannelId > 0)
 		{
-			MEDIA_INFO mediaInfo;
-			memset(&mediaInfo, 0, sizeof(MEDIA_INFO));
-			EasyPlayer_GetMediaInfo(mChannelId, mediaInfo);
+			CAREYE_MEDIA_INFO mediaInfo;
+			memset(&mediaInfo, 0, sizeof(CAREYE_MEDIA_INFO));
+			CarEyePlayer_GetMediaInfo(mChannelId, mediaInfo);
 
 			channelStatus.showOSD = (channelStatus.showOSD==0x00?0x01:0x00);
 #if 1	//OSD Example
-			EASY_PALYER_OSD osd;
+			CAREYE_PALYER_OSD osd;
 			osd.alpha = 255;
 			osd.size = 35;
 			osd.color = RGB(255,0,255);
@@ -132,12 +132,12 @@ BOOL CDlgRender::OnCommand(WPARAM wParam, LPARAM lParam)
 			osd.rect.top = 100;
 			osd.rect.bottom = 800;
 			osd.shadowcolor = RGB(0,0,0);
-			//char* ss =  "这是EasyPlayer-RTSP-Win播放器 \r\n的字幕叠加接口的效果！！\r\n以\"\\r\\n\"为换行结束符号\r\n注意：每行的长度不能超过128个字节\r\n总的OSD长度不能超过1024个字节";
+			//char* ss =  "这是CarEyePlayer-RTSP-Win播放器 \r\n的字幕叠加接口的效果！！\r\n以\"\\r\\n\"为换行结束符号\r\n注意：每行的长度不能超过128个字节\r\n总的OSD长度不能超过1024个字节";
 			char sMediaInfo[512] = {0,};
 			sprintf(sMediaInfo, "媒体信息：分辨率：%d*%d  fps: %d  音频采样率：%d 音频通道：%d  音频采样位宽： %d ",
 				mediaInfo.width, mediaInfo.height, mediaInfo.fps, mediaInfo.sample_rate, mediaInfo.channels, mediaInfo.bits_per_sample);
 			strcpy(osd.stOSD ,sMediaInfo);
-			EasyPlayer_ShowOSD(mChannelId, channelStatus.showOSD,  osd);
+			CarEyePlayer_ShowOSD(mChannelId, channelStatus.showOSD,  osd);
 
 #endif
 
@@ -163,11 +163,11 @@ void CDlgRender::OnPaint()
 	dc.FillRect(&rcClient, &brushBkgnd);
 	brushBkgnd.DeleteObject(); //释放画刷 
 
-	if ( m_pEasyLogo != NULL && !m_pEasyLogo->IsNull() )
+	if ( m_pCarEyeLogo != NULL && !m_pCarEyeLogo->IsNull() )
 	{
 		int nStartX = (rcClient.Width()-184)/2;
 		int nStartY =  (rcClient.Height()-184)/2;
-		m_pEasyLogo->DrawImage(CDC::FromHandle(dc.m_hDC),nStartX,nStartY);
+		m_pCarEyeLogo->DrawImage(CDC::FromHandle(dc.m_hDC),nStartX,nStartY);
 	}
 }
 
@@ -176,7 +176,7 @@ BOOL CDlgRender::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	m_pEasyLogo = UIRenderEngine->GetImage(TEXT("Res\\EasyTeam\\Easylogo.png"));
+	m_pCarEyeLogo = UIRenderEngine->GetImage(TEXT("Res\\CarEyeTeam\\CarEyelogo.png"));
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
